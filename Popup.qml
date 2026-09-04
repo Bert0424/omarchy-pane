@@ -48,8 +48,8 @@ Panel {
     open: root.opened
     centerOnBar: false
     focusTarget: keyCatcher
-    contentWidth: panel.fittedContentWidth(col.width + Style.space(36))
-    contentHeight: panel.fittedContentHeight(col.implicitHeight + Style.space(36))
+    contentWidth: panel.fittedContentWidth(Style.space(336))
+    contentHeight: panel.fittedContentHeight(col.implicitHeight)
 
     PanelKeyCatcher {
       id: keyCatcher
@@ -59,11 +59,8 @@ Panel {
 
       Column {
         id: col
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.margins: Style.space(18)
+        anchors.fill: parent
         spacing: Style.space(12)
-        width: Style.space(300)
 
         Text {
           text: "🌧  Pane"
