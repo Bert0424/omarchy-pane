@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "id": "bert.pane",
+  "name": "Pane",
+  "version": "0.1.0",
+  "author": "bert",
+  "description": "Weather on the inside of your screen: rain and snow that fall over your windows, droplets that bead up and run down the glass, and lightning in a storm",
+  "kinds": [
+    "service",
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "service": "Pane.qml",
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Pane",
+    "description": "Rain, snow and storms rendered on a click-through layer over your desktop",
+    "category": "Fun",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "enabled": true,
+      "intensity": "Rain",
+      "density": "Normal",
+      "layer": "In front of windows",
+      "streaks": true,
+      "beads": true,
+      "lightning": true,
+      "wind": "None",
+      "pauseFullscreen": true
+    },
+    "schema": [
+      {
+        "key": "enabled",
+        "type": "boolean",
+        "label": "Show weather",
+        "defaultValue": true
+      },
+      {
+        "key": "intensity",
+        "type": "enum",
+        "label": "Conditions",
+        "options": [
+          "Drizzle",
+          "Rain",
+          "Downpour",
+          "Thunderstorm",
+          "Snow"
+        ],
+        "defaultValue": "Rain",
+        "description": "Forced for now \u2014 Open-Meteo auto-detection lands in v2."
+      },
+      {
+        "key": "density",
+        "type": "enum",
+        "label": "Density",
+        "options": [
+          "Sparse",
+          "Normal",
+          "Heavy"
+        ],
+        "defaultValue": "Normal"
+      },
+      {
+        "key": "wind",
+        "type": "enum",
+        "label": "Wind",
+        "options": [
+          "None",
+          "Light",
+          "Gusty"
+        ],
+        "defaultValue": "None"
+      },
+      {
+        "key": "layer",
+        "type": "enum",
+        "label": "Layer",
+        "options": [
+          "In front of windows",
+          "On the desktop",
+          "Above everything"
+        ],
+        "defaultValue": "In front of windows"
+      },
+      {
+        "key": "streaks",
+        "type": "boolean",
+        "label": "Falling rain",
+        "defaultValue": true
+      },
+      {
+        "key": "beads",
+        "type": "boolean",
+        "label": "Droplets on the glass",
+        "description": "Beads that cling, then slide down leaving a trail",
+        "defaultValue": true
+      },
+      {
+        "key": "lightning",
+        "type": "boolean",
+        "label": "Lightning flashes",
+        "description": "Thunderstorm only",
+        "defaultValue": true
+      },
+      {
+        "key": "pauseFullscreen",
+        "type": "boolean",
+        "label": "Pause over fullscreen windows",
+        "description": "Stops entirely for games and video",
+        "defaultValue": true
+      }
+    ]
+  }
+}

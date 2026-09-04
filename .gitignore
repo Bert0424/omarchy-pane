@@ -1,0 +1,4 @@
+# nothing generated lives in the repo; keep it clean
+*.qmlc
+*.jsc
+.DS_Store
