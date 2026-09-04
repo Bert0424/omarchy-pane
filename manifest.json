@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "bert.pane",
   "name": "Pane",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "bert",
   "description": "Weather on the inside of your screen: rain and snow that fall over your windows, droplets that bead up and run down the glass, and lightning in a storm",
   "kinds": [

@@ -280,6 +280,7 @@ Item {
       // 3. Lightning
       // ---------------------------------------------------------------
       Rectangle {
+        id: flashPane
         anchors.fill: parent
         color: "white"
         opacity: 0
@@ -288,10 +289,14 @@ Item {
         SequentialAnimation {
           id: flash
           // Double-strike: sharp leader, gap, weaker return stroke.
-          NumberAnimation { target: parent; property: "opacity"; to: 0.50; duration: 45 }
-          NumberAnimation { target: parent; property: "opacity"; to: 0.05; duration: 90 }
-          NumberAnimation { target: parent; property: "opacity"; to: 0.30; duration: 60 }
-          NumberAnimation { target: parent; property: "opacity"; to: 0.0;  duration: 420 }
+          // Target flashPane explicitly: inside an animation `parent` resolves
+          // from the enclosing scope (this Rectangle's parent, i.e. the window
+          // content item), not to the Rectangle, so it silently animated the
+          // whole scene's opacity and the flash never showed.
+          NumberAnimation { target: flashPane; property: "opacity"; to: 0.50; duration: 45 }
+          NumberAnimation { target: flashPane; property: "opacity"; to: 0.05; duration: 90 }
+          NumberAnimation { target: flashPane; property: "opacity"; to: 0.30; duration: 60 }
+          NumberAnimation { target: flashPane; property: "opacity"; to: 0.0;  duration: 420 }
         }
 
         Timer {
