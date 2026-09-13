@@ -20,6 +20,7 @@ BarWidget {
     layer: "In front of windows",
     streaks: true,
     beads: true,
+    fog: false,
     lightning: true,
     pauseFullscreen: true
   })

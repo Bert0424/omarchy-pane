@@ -128,6 +128,14 @@ Panel {
 
         Toggle {
           width: parent.width
+          label: "Fog"
+          description: "Haze at the screen edges; the middle stays clear"
+          checked: root.val("fog", false)
+          onClicked: root.put("fog", !checked)
+        }
+
+        Toggle {
+          width: parent.width
           label: "Pause over fullscreen windows"
           description: "Stops entirely for games and video"
           checked: root.val("pauseFullscreen", true)

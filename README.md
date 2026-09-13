@@ -3,9 +3,15 @@
 Weather on the inside of your screen.
 
 Pane draws rain, snow and storms on a transparent, click-through layer over
-your desktop. Streaks fall across your windows, droplets bead up on the glass
-and run down it leaving a trail, and a thunderstorm throws the occasional
-double-strike of lightning across everything.
+your desktop. Streaks fall across your windows. Droplets bead up on the glass,
+merge when they touch, and run down in rivulets that pick up whatever they pass
+on the way. Fog creeps in from the edges of the screen. A thunderstorm throws a
+forked bolt across everything, and the flash falls brighter on the side it
+struck.
+
+When the weather stops, the pane dries off rather than blinking out — the
+remaining beads shrink and evaporate over a minute or so, and only then does
+the surface go away.
 
 Every click, drag and hover passes straight through it. You can work normally
 with a downpour running.
@@ -41,7 +47,8 @@ Nothing is left behind — see *What it does to your system* below.
 | **Wind** | None (straight down, the default), Light, Gusty. |
 | **Layer** | On the desktop, in front of windows, or above everything. |
 | **Falling rain** | The streaks crossing the screen. |
-| **Droplets on the glass** | Beads that cling, then run down leaving a trail. |
+| **Droplets on the glass** | Beads that cling, merge with each other, then run down leaving a trail. |
+| **Fog** | Haze creeping in from the screen edges. The middle stays clear so text keeps its contrast. |
 | **Lightning** | Thunderstorm only. |
 | **Pause over fullscreen windows** | Stops completely for games and video. |
 
@@ -51,20 +58,34 @@ is planned but not implemented — Pane does not touch the network today.
 ## Performance
 
 The effect is real rendering, so it is not free. Measured on an 11th-gen Intel
-iGPU at 1920x1080, as a share of one core:
+iGPU at 1920x1080, as **added** share of one core over the shell's own idle —
+added rather than absolute, because the shell's baseline depends on how many
+other plugins you run, and yours will differ from mine:
 
-| State | Cost |
+| State | Added cost |
 | --- | --- |
-| Off (surface destroyed) | ~3% (shell baseline) |
-| Drizzle / Normal | ~13% |
-| Rain / Normal | ~15% |
-| Downpour / Normal | ~17% |
-| Thunderstorm / Heavy | ~22% |
+| Off (surface destroyed) | none measurable |
+| Drizzle / Normal | ~6% |
+| Rain / Normal | ~9% |
+| Downpour / Normal | ~10% |
+| Rain / Normal + fog | ~11% |
+| Thunderstorm / Heavy | ~13% |
+| Thunderstorm / Heavy + fog | ~15% |
 
-Two design choices keep this bounded. When there is no weather the layer-shell
-surface is unmapped entirely rather than hidden, so being switched off costs
-nothing. And with *Pause over fullscreen windows* on, the surface is destroyed
-whenever a window goes fullscreen, so games and video are untouched.
+Fog costs roughly two points on top of whatever is falling. Beads merging costs
+nothing measurable: the pool is a fixed size, so finding contacts is a few
+hundred comparisons every 220ms no matter how hard it rains.
+
+Switched off, Pane measured 0.3 points above having the plugin disabled
+outright, which is inside the noise. That is the design working: when there is
+no weather the layer-shell surface is unmapped entirely rather than hidden, so
+being switched off genuinely costs nothing. The dry-off runs first, then the
+surface goes and stays gone. And with *Pause over fullscreen windows* on, the
+surface is destroyed whenever a window goes fullscreen, so games and video are
+untouched.
+
+Treat all of these as approximate. They move by a point or two depending on
+what else is on screen.
 
 ## What it does to your system
 
