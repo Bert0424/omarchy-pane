@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.Commons
+import qs.Commons as Commons
 import qs.Ui
 
 // Tuning popup for the Rain overlay. Reads/writes through the host BarWidget
@@ -65,7 +66,7 @@ Panel {
         Text {
           text: "🌧  Pane"
           textFormat: Text.PlainText
-          color: root.bar ? root.bar.foreground : Color.foreground
+          color: root.bar ? root.bar.foreground : Commons.Color.foreground
           font.family: root.bar ? root.bar.fontFamily : Style.font.family
           font.pixelSize: Style.font.title
           font.bold: true
